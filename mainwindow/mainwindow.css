@@ -1,0 +1,35 @@
+@charset "UTF-8";
+body {
+  margin: 20px;
+  background-color: #332e28;
+  color: #ccc;
+  font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', '游ゴシック Medium', meiryo, sans-serif;
+  overflow: hidden;
+}
+h1,
+p {
+  margin: 0;
+}
+h1 {
+  font-size: 18px;
+}
+p {
+  font-size: 11px;
+  opacity: 0.6;
+}
+.wrap {
+  display: flex;
+}
+.banner-img {
+  display: inline-flex;
+  width: 180px;
+  align-self: center;
+}
+.now-playing {
+  display: inline-flex;
+  width: 250px;
+  line-height: 1.3;
+  flex-direction: column;
+  align-self: center;
+  margin-left: 12px;
+}
