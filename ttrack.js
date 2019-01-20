@@ -1,3 +1,11 @@
+/*TTrack module, usage:
+  var ttrack=require("ttrack");
+  ttrack.waitForRunning();
+
+  or any other public functions.
+  require returns a working instance of ttrack.
+  assigned variable name can be anything.*/
+
 const psList=require("ps-list");
 const fs=require("fs");
 
@@ -19,6 +27,7 @@ class TTrack
 
     //public.
     //begins wait for tracked process loop.
+    //upon finding a tracked program, ends loop and makes a log entry
     waitForRunning()
     {
         var foundProcess;
