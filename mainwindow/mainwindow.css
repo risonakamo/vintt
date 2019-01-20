@@ -1,6 +1,10 @@
 @charset "UTF-8";
+html {
+  height: 100%;
+}
 body {
-  margin: 20px;
+  height: 100%;
+  margin: 0;
   background-color: #332e28;
   color: #ccc;
   font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', '游ゴシック Medium', meiryo, sans-serif;
@@ -19,6 +23,16 @@ p {
 }
 .wrap {
   display: flex;
+  margin: 20px;
+}
+.wrap.inactive {
+  display: none;
+}
+.wrap.idle {
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
 }
 .banner-img {
   display: inline-flex;

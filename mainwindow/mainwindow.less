@@ -4,9 +4,15 @@
 @weird-white: #ccc;
 @brighter-weird-white: #fcfbf7;
 
+html
+{
+    height: 100%;
+}
+
 body
 {
-    margin: 20px;
+    height: 100%;
+    margin: 0;
     background-color: @main-dark;
     color: @weird-white;
     font-family: 'Hiragino Sans','Hiragino Kaku Gothic ProN','游ゴシック Medium',meiryo,sans-serif;
@@ -29,9 +35,26 @@ p
     opacity: .6;
 }
 
+//general top level flex wrapping container
 .wrap
 {
     display: flex;
+    margin: 20px;
+
+    //disabled
+    &.inactive
+    {
+        display: none;
+    }
+
+    //idle wrapper element
+    &.idle
+    {
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+    }
 }
 
 //main banner img
