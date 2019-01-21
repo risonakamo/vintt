@@ -97,7 +97,7 @@ class TTrack
     logProcess(pname)
     {
         var dnow=new Date();
-        fs.appendFile(this.logFile,`${dnow.getFullYear()}-${dnow.getMonth()+1}-${dnow.getDate()} ${dnow.toTimeString().slice(0,8)} ${pname}\n`,()=>{});
+        fs.appendFile(this.logFile,`${dnow.getFullYear()}-${dnow.getMonth()+1}-${dnow.getDate()} ${dnow.toTimeString().slice(0,8)} ${pname}\r\n`,()=>{});
     }
 }
 
