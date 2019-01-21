@@ -4,10 +4,16 @@
 
   or any other public functions.
   require returns a working instance of ttrack.
-  assigned variable name can be anything.*/
+  assigned variable name can be anything.
+
+  EVENTS:
+  "found": callback(data)
+    event triggers when process is found. callback recieves
+    trackSettings data object*/
 
 const psList=require("ps-list");
 const fs=require("fs");
+const events=require("events");
 
 class TTrack
 {
@@ -17,12 +23,26 @@ class TTrack
         //later make this loaded from settings file.
         this.trackSet=new Set(["notepad.exe"]);
 
+        //settings/additional info for each tracked program.
+        //later make this loaded from a file.
+        this.trackSettings={
+            "notepad.exe":{
+                name:"notepad",
+                img:"",
+                totalTime:128,
+                process:"notepad.exe"
+            }
+        };
+
         //the log file path
         //later maek this configurable
         this.logFile="ttrack.log";
 
         //wait for running timer function
         //this.waitRunningTimer*;
+
+        //event system
+        this.eventSystem=new events.EventEmitter();
     }
 
     //public.
@@ -39,6 +59,7 @@ class TTrack
                 {
                     clearInterval(this.waitRunningTimer);
                     this.logProcess(foundProcess);
+                    this.eventSystem.emit("found",this.trackSettings[foundProcess]);
                 }
             }).catch((err)=>{
                 if (err)
@@ -48,6 +69,12 @@ class TTrack
                 }
             });
         },2000);
+    }
+
+    //public, event system ON
+    on(ename,listener)
+    {
+        this.eventSystem.on(ename,listener);
     }
 
     //give it a processlist object from plist.

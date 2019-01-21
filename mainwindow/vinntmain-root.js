@@ -1,15 +1,40 @@
 class VinttMainRoot extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      waiting: true,
+      img: "",
+      name: ""
+    };
+  }
+
+  processNowRunning(processData) {
+    this.setState({
+      waiting: false,
+      img: processData.img,
+      name: processData.name
+    });
+  }
+
   render() {
+    var waitingClasses;
+
+    if (this.state.waiting) {
+      waitingClasses = ["", "inactive"];
+    } else {
+      waitingClasses = ["inactive", ""];
+    }
+
     return React.createElement(React.Fragment, null, React.createElement("div", {
-      className: "wrap idle inactive"
+      className: `wrap idle ${waitingClasses[0]}`
     }, React.createElement("p", null, "waiting...")), React.createElement("div", {
-      className: "wrap"
+      className: `wrap ${waitingClasses[1]}`
     }, React.createElement("img", {
       className: "banner-img",
-      src: "test1.png"
+      src: this.state.img
     }), React.createElement("div", {
       className: "now-playing"
-    }, React.createElement("h1", null, "\u8A00\u306E\u8449\u821E\u3044\u6563\u308B\u590F\u306E\u98A8\u9234"), React.createElement("p", null, "current session: 2 hours"), React.createElement("p", null, "total: 12 hours "))));
+    }, React.createElement("h1", null, this.state.name), React.createElement("p", null, "current session: 2 hours"), React.createElement("p", null, "total: 12 hours"))));
   }
 
 }
