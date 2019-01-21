@@ -45,7 +45,7 @@ var lessConfig={
 };
 
 var reactConfig={
-    targets:[],
+    targets:["mainwindow/vinntmain-root.jsx"],
     base:"."
 };
 
