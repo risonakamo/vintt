@@ -13,6 +13,9 @@ class VinttMainRoot extends React.Component
       img:"",
       name:""
     };
+
+    //info section wrap element thing
+    this.infoSection=React.createRef();
   }
 
   componentDidMount()
@@ -22,6 +25,16 @@ class VinttMainRoot extends React.Component
     });
 
     ttrack.waitForRunning();
+  }
+
+  componentDidUpdate()
+  {
+    if (!this.state.waiting)
+    {
+      setTimeout(()=>{
+        requestResize(500,this.infoSection.current.clientHeight+40);
+      },200);
+    }
   }
 
   //recieve a process track info object and set it as the currently running program
@@ -50,7 +63,7 @@ class VinttMainRoot extends React.Component
         <p>waiting...</p>
       </div>
 
-      <div className={`wrap ${waitingClasses[1]}`}>
+      <div className={`wrap ${waitingClasses[1]}`} ref={this.infoSection}>
         <img className="banner-img" src={this.state.img}/>
         <div className="now-playing">
           <h1>{this.state.name}</h1>

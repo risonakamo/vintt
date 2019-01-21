@@ -8,6 +8,7 @@ class VinttMainRoot extends React.Component {
       img: "",
       name: ""
     };
+    this.infoSection = React.createRef();
   }
 
   componentDidMount() {
@@ -15,6 +16,14 @@ class VinttMainRoot extends React.Component {
       this.processNowRunning(data);
     });
     ttrack.waitForRunning();
+  }
+
+  componentDidUpdate() {
+    if (!this.state.waiting) {
+      setTimeout(() => {
+        requestResize(500, this.infoSection.current.clientHeight + 40);
+      }, 200);
+    }
   }
 
   processNowRunning(processData) {
@@ -37,7 +46,8 @@ class VinttMainRoot extends React.Component {
     return React.createElement(React.Fragment, null, React.createElement("div", {
       className: `wrap idle ${waitingClasses[0]}`
     }, React.createElement("p", null, "waiting...")), React.createElement("div", {
-      className: `wrap ${waitingClasses[1]}`
+      className: `wrap ${waitingClasses[1]}`,
+      ref: this.infoSection
     }, React.createElement("img", {
       className: "banner-img",
       src: this.state.img
