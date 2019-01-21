@@ -27,8 +27,8 @@ class TTrack
         //later make this loaded from a file.
         this.trackSettings={
             "notepad.exe":{
-                name:"notepad",
-                img:"",
+                name:"notepadnotepadnotepadnotepadnotepadnotepadnotepadnotepadnotepadnotepadnotepadnotepadnotepadnotepad",
+                img:"test1.png",
                 totalTime:128,
                 process:"notepad.exe"
             }

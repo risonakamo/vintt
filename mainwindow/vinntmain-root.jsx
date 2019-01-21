@@ -1,3 +1,5 @@
+const ttrack=require("../ttrack.js");
+
 /*top ui react root of vintt main window.
   VinttMainRoot()*/
 class VinttMainRoot extends React.Component
@@ -11,6 +13,15 @@ class VinttMainRoot extends React.Component
       img:"",
       name:""
     };
+  }
+
+  componentDidMount()
+  {
+    ttrack.on("found",(data)=>{
+      this.processNowRunning(data);
+    });
+
+    ttrack.waitForRunning();
   }
 
   //recieve a process track info object and set it as the currently running program

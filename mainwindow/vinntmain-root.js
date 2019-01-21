@@ -1,3 +1,5 @@
+const ttrack = require("../ttrack.js");
+
 class VinttMainRoot extends React.Component {
   constructor(props) {
     super(props);
@@ -6,6 +8,13 @@ class VinttMainRoot extends React.Component {
       img: "",
       name: ""
     };
+  }
+
+  componentDidMount() {
+    ttrack.on("found", data => {
+      this.processNowRunning(data);
+    });
+    ttrack.waitForRunning();
   }
 
   processNowRunning(processData) {

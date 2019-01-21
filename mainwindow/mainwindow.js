@@ -2,5 +2,5 @@ window.onload=main;
 
 function main()
 {
-    ReactDOM.render(React.createElement(VinttMainRoot),document.querySelector("body"));
+    ReactDOM.render(React.createElement(VinttMainRoot),document.querySelector(".top-wrap"));
 }
