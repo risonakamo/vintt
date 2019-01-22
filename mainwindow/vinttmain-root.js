@@ -41,11 +41,13 @@ class VinttMainRoot extends React.Component {
   }
 
   resetIdle() {
-    this.setState({
-      waiting: true
-    });
-    ttrack.logProcess(this.lastData, 1);
-    ttrack.waitForRunning();
+    if (!this.state.waiting) {
+      this.setState({
+        waiting: true
+      });
+      ttrack.logProcess(this.lastData, 1);
+      ttrack.waitForRunning();
+    }
   }
 
   render() {

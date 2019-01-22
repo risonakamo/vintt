@@ -15,28 +15,18 @@ const psList=require("ps-list");
 const fs=require("fs");
 const events=require("events");
 
+const logFile="ttrack.log"; //the log file path
+const tsettingsFile="tsettings.json"; //tsettings file path
+
 class TTrack
 {
     constructor()
     {
-        //set of process names to track
-        //later make this loaded from settings file.
-        this.trackSet=new Set(["notepad.exe"]);
-
         //settings/additional info for each tracked program.
-        //later make this loaded from a file.
-        this.trackSettings={
-            "notepad.exe":{
-                name:"notepad",
-                img:"test1.png",
-                totalTime:128,
-                process:"notepad.exe"
-            }
-        };
+        this.trackSettings=JSON.parse(fs.readFileSync(tsettingsFile));
 
-        //the log file path
-        //later maek this configurable
-        this.logFile="ttrack.log";
+        //set of process names to track
+        this.trackSet=new Set(Object.keys(this.trackSettings));
 
         //wait for running timer function
         //this.waitRunningTimer*;
@@ -68,7 +58,7 @@ class TTrack
                     console.log(err);
                 }
             });
-        },2000);
+        },1500);
     }
 
     //public, event system ON
@@ -97,7 +87,7 @@ class TTrack
             end="V";
         }
 
-        fs.appendFile(this.logFile,`${dnow.getFullYear()}-${dnow.getMonth()+1}-${dnow.getDate()} ${dnow.toTimeString().slice(0,8)} ${end} ${tracksetting.process} ${tracksetting.name}\r\n`,()=>{});
+        fs.appendFile(logFile,`${dnow.getFullYear()}-${dnow.getMonth()+1}-${dnow.getDate()} ${dnow.toTimeString().slice(0,8)} ${end} ${tracksetting.process} ${tracksetting.name}\r\n`,()=>{});
     }
 
     //give it a processlist object from plist.

@@ -57,9 +57,13 @@ class VinttMainRoot extends React.Component
   //go back to idle mode
   resetIdle()
   {
-    this.setState({waiting:true});
-    ttrack.logProcess(this.lastData,1);
-    ttrack.waitForRunning();
+    //only if not already in idle mode
+    if (!this.state.waiting)
+    {
+      this.setState({waiting:true});
+      ttrack.logProcess(this.lastData,1);
+      ttrack.waitForRunning();
+    }
   }
 
   render()
