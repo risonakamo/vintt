@@ -1,0 +1,8 @@
+#track setting and additional details for a single tracked process
+type TrackSetting
+{
+    name: string, #user given name for the process
+    img: string, #img url for this process
+    totalTime: int, #total time in minutes
+    process: string #the name of the process
+}

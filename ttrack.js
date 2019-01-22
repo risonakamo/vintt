@@ -58,7 +58,7 @@ class TTrack
                 if (foundProcess)
                 {
                     clearInterval(this.waitRunningTimer);
-                    this.logProcess(foundProcess);
+                    this.logProcess(this.trackSettings[foundProcess]);
                     this.eventSystem.emit("found",this.trackSettings[foundProcess]);
                 }
             }).catch((err)=>{
@@ -77,6 +77,29 @@ class TTrack
         this.eventSystem.on(ename,listener);
     }
 
+    //public.
+    //make a log entry to the log file.
+    //give it a whole TrackSetting object.
+    //give it end=true to mark the log entry with Λ for end,
+    //otherwise it does V for start. for now, it is so the log
+    //file can look visually obvious if something is wrong.
+    logProcess(tracksetting,end=0)
+    {
+        var dnow=new Date();
+
+        if (end)
+        {
+            end="Λ";
+        }
+
+        else
+        {
+            end="V";
+        }
+
+        fs.appendFile(this.logFile,`${dnow.getFullYear()}-${dnow.getMonth()+1}-${dnow.getDate()} ${dnow.toTimeString().slice(0,8)} ${end} ${tracksetting.process} ${tracksetting.name}\r\n`,()=>{});
+    }
+
     //give it a processlist object from plist.
     //returns the name of a process that is on the track list,
     //the first one found. or returns null.
@@ -91,13 +114,6 @@ class TTrack
         }
 
         return null;
-    }
-
-    //make a log entry to the log file.
-    logProcess(pname)
-    {
-        var dnow=new Date();
-        fs.appendFile(this.logFile,`${dnow.getFullYear()}-${dnow.getMonth()+1}-${dnow.getDate()} ${dnow.toTimeString().slice(0,8)} ${pname}\r\n`,()=>{});
     }
 }
 

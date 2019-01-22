@@ -16,6 +16,11 @@ class VinttMainRoot extends React.Component {
       this.processNowRunning(data);
     });
     ttrack.waitForRunning();
+    window.addEventListener("keypress", e => {
+      if (e.key == "Enter") {
+        this.resetIdle();
+      }
+    });
   }
 
   componentDidUpdate() {
@@ -27,11 +32,20 @@ class VinttMainRoot extends React.Component {
   }
 
   processNowRunning(processData) {
+    this.lastData = processData;
     this.setState({
       waiting: false,
       img: processData.img,
       name: processData.name
     });
+  }
+
+  resetIdle() {
+    this.setState({
+      waiting: true
+    });
+    ttrack.logProcess(this.lastData, 1);
+    ttrack.waitForRunning();
   }
 
   render() {
@@ -57,3 +71,5 @@ class VinttMainRoot extends React.Component {
   }
 
 }
+
+module.exports = VinttMainRoot;

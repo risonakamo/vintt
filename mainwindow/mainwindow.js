@@ -1,4 +1,5 @@
 const {ipcRenderer}=require("electron");
+const VinttMainRoot=require("./vinttmain-root.js");
 
 window.onload=main;
 
