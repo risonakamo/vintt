@@ -32,8 +32,9 @@ class VinttMainRoot extends React.Component
 
     //key listener for renderer window
     window.addEventListener("keypress",(e)=>{
-      if (e.key=="Enter")
+      if (e.key=="Enter" || e.key==" ")
       {
+        console.log(e.key);
         this.resetIdle();
       }
     });

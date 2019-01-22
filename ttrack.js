@@ -17,22 +17,27 @@ const events=require("events");
 
 const logFile="ttrack.log"; //the log file path
 const tsettingsFile="tsettings.json"; //tsettings file path
+const timeFile="ttime.log"; //total time file
 
 class TTrack
 {
     constructor()
     {
-        //settings/additional info for each tracked program.
-        this.trackSettings=JSON.parse(fs.readFileSync(tsettingsFile));
-
-        //set of process names to track
-        this.trackSet=new Set(Object.keys(this.trackSettings));
+        //sets:
+        //this.trackSettings;*
+        //this.trackSet;*
+        //this.totalTimes;*
+        this.loadData();
 
         //wait for running timer function
         //this.waitRunningTimer*;
 
         //event system
         this.eventSystem=new events.EventEmitter();
+
+        //when a process is found and starts, this records the start time,
+        //so when an end is called the duration can be calculated
+        //this.lastFoundTime;*
     }
 
     //public.
@@ -48,7 +53,23 @@ class TTrack
                 if (foundProcess)
                 {
                     clearInterval(this.waitRunningTimer);
+
+                    //grab the total time for the current found process and put it into the
+                    //track settings.
+                    if (this.totalTimes[foundProcess])
+                    {
+                        this.trackSettings[foundProcess].totalTime=this.totalTimes[foundProcess];
+                    }
+
+                    else
+                    {
+                        this.trackSettings[foundProcess].totalTime=0;
+                    }
+
                     this.logProcess(this.trackSettings[foundProcess]);
+
+                    this.lastFoundTime=new Date();
+
                     this.eventSystem.emit("found",this.trackSettings[foundProcess]);
                 }
             }).catch((err)=>{
@@ -104,6 +125,43 @@ class TTrack
         }
 
         return null;
+    }
+
+    //given a track setting, updates the total time object by calculating the duration
+    //between the current time and the lastFoundTime, which should be the time that the
+    //given trackSetting program was started. don't exactly know why i'm splitting it up like
+    //this, but whatever. also writes to the ttime file.
+    updateTotalTime(tracksetting)
+    {
+
+    }
+
+    //do constructor data loading actions
+    loadData()
+    {
+        try
+        {
+            //settings/additional info for each tracked program.
+            this.trackSettings=JSON.parse(fs.readFileSync(tsettingsFile));
+        }
+
+        catch(err)
+        {
+            this.trackSettings={};
+        }
+
+        //set of process names to track
+        this.trackSet=new Set(Object.keys(this.trackSettings));
+
+        try
+        {
+            this.totalTimes=JSON.parse(fs.readFileSync(timeFile));
+        }
+
+        catch(err)
+        {
+            this.totalTimes={};
+        }
     }
 }
 

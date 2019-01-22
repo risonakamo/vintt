@@ -22,7 +22,8 @@ class VinttMainRoot extends React.Component {
     });
     ttrack.waitForRunning();
     window.addEventListener("keypress", e => {
-      if (e.key == "Enter") {
+      if (e.key == "Enter" || e.key == " ") {
+        console.log(e.key);
         this.resetIdle();
       }
     });
