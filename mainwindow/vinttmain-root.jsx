@@ -1,4 +1,5 @@
 const ttrack=require("../ttrack.js");
+const {ipcRenderer}=require("electron");
 
 /*top ui react root of vintt main window.
   VinttMainRoot()*/
@@ -34,6 +35,11 @@ class VinttMainRoot extends React.Component
       {
         this.resetIdle();
       }
+    });
+
+    //handle about to close event from electron main
+    ipcRenderer.on("about-to-close",()=>{
+      this.resetIdle();
     });
   }
 

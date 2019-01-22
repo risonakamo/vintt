@@ -1,5 +1,9 @@
 const ttrack = require("../ttrack.js");
 
+const {
+  ipcRenderer
+} = require("electron");
+
 class VinttMainRoot extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +24,9 @@ class VinttMainRoot extends React.Component {
       if (e.key == "Enter") {
         this.resetIdle();
       }
+    });
+    ipcRenderer.on("about-to-close", () => {
+      this.resetIdle();
     });
   }
 
