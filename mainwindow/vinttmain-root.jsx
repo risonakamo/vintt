@@ -15,10 +15,11 @@ class VinttMainRoot extends React.Component
       name:""
     };
 
-    //this.lastData; last data object to be recieved
+    //this.lastData;* last data object to be recieved
 
     //info section wrap element thing
     this.infoSection=React.createRef();
+    this.minuteTimer=React.createRef();
   }
 
   componentDidMount()
@@ -57,6 +58,7 @@ class VinttMainRoot extends React.Component
   processNowRunning(processData)
   {
     this.lastData=processData;
+    this.minuteTimer.current.startTime();
     this.setState({waiting:false,img:processData.img,name:processData.name});
   }
 
@@ -68,6 +70,7 @@ class VinttMainRoot extends React.Component
     {
       this.setState({waiting:true});
       ttrack.logProcess(this.lastData,1);
+      this.minuteTimer.current.endTime();
       ttrack.waitForRunning();
     }
   }
@@ -96,11 +99,48 @@ class VinttMainRoot extends React.Component
         <img className="banner-img" src={this.state.img}/>
         <div className="now-playing">
           <h1>{this.state.name}</h1>
-          <p>current session: 2 hours</p>
+          <p>current session: <MinuteTimer ref={this.minuteTimer}/></p>
           <p>total: 12 hours</p>
         </div>
       </div>
     </>);
+  }
+}
+
+/*auto minute timer display element
+  MinuteTimer()*/
+class MinuteTimer extends React.Component
+{
+  constructor(props)
+  {
+    super(props);
+
+    this.state={
+      mins:0
+    };
+
+    //minute timer interval function
+    //this.minTimer;*
+  }
+
+  //being the timer
+  startTime()
+  {
+    this.minTimer=setInterval(()=>{
+      this.setState({mins:this.state.mins+1});
+    },60000);
+  }
+
+  //end the timer and reset the time
+  endTime()
+  {
+    clearInterval(this.minTimer);
+    this.setState({mins:0});
+  }
+
+  render()
+  {
+    return <>{this.state.mins} minutes</>;
   }
 }
 

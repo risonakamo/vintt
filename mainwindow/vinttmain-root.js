@@ -13,6 +13,7 @@ class VinttMainRoot extends React.Component {
       name: ""
     };
     this.infoSection = React.createRef();
+    this.minuteTimer = React.createRef();
   }
 
   componentDidMount() {
@@ -40,6 +41,7 @@ class VinttMainRoot extends React.Component {
 
   processNowRunning(processData) {
     this.lastData = processData;
+    this.minuteTimer.current.startTime();
     this.setState({
       waiting: false,
       img: processData.img,
@@ -53,6 +55,7 @@ class VinttMainRoot extends React.Component {
         waiting: true
       });
       ttrack.logProcess(this.lastData, 1);
+      this.minuteTimer.current.endTime();
       ttrack.waitForRunning();
     }
   }
@@ -76,7 +79,38 @@ class VinttMainRoot extends React.Component {
       src: this.state.img
     }), React.createElement("div", {
       className: "now-playing"
-    }, React.createElement("h1", null, this.state.name), React.createElement("p", null, "current session: 2 hours"), React.createElement("p", null, "total: 12 hours"))));
+    }, React.createElement("h1", null, this.state.name), React.createElement("p", null, "current session: ", React.createElement(MinuteTimer, {
+      ref: this.minuteTimer
+    })), React.createElement("p", null, "total: 12 hours"))));
+  }
+
+}
+
+class MinuteTimer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mins: 0
+    };
+  }
+
+  startTime() {
+    this.minTimer = setInterval(() => {
+      this.setState({
+        mins: this.state.mins + 1
+      });
+    }, 60000);
+  }
+
+  endTime() {
+    clearInterval(this.minTimer);
+    this.setState({
+      mins: 0
+    });
+  }
+
+  render() {
+    return React.createElement(React.Fragment, null, this.state.mins, " minutes");
   }
 
 }
