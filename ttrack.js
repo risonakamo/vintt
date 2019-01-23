@@ -17,7 +17,7 @@ const events=require("events");
 
 const logFile="ttrack.log"; //the log file path
 const tsettingsFile="tsettings.json"; //tsettings file path
-const timeFile="ttime.log"; //total time file
+const timeFile="playtime.json"; //total time file
 
 class TTrack
 {
