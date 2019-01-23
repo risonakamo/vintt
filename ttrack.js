@@ -14,10 +14,14 @@
 const psList=require("ps-list");
 const fs=require("fs");
 const events=require("events");
+const process=require("process");
+const path=require("path");
 
-const logFile="ttrack.log"; //the log file path
-const tsettingsFile="tsettings.json"; //tsettings file path
-const timeFile="playtime.json"; //total time file
+//path to exe, where config and other folders should be located next to
+const exePath=path.relative(".",path.dirname(process.execPath));
+const logFile=`${exePath}/config/ttrack.log`; //the log file path
+const tsettingsFile=`${exePath}/config/tsettings.json`; //tsettings file path
+const timeFile=`${exePath}/config/playtime.json`; //total time file
 
 class TTrack
 {
@@ -71,10 +75,16 @@ class TTrack
                         this.lastProcess.totalTime=0;
                     }
 
+                    //update image path to be relative to banners folder
+                    this.lastProcess.img=`../${exePath}/banners/${this.lastProcess.img}`;
+
+                    //perform inital log
                     this.logProcess(this.lastProcess);
 
+                    //record time the process started
                     this.lastFoundTime=new Date();
 
+                    //emit process found event
                     this.eventSystem.emit("found",this.lastProcess);
                 }
             }).catch((err)=>{
@@ -159,6 +169,9 @@ class TTrack
     //do constructor data loading actions
     loadData()
     {
+        fs.mkdir(exePath+"/config",(err)=>{});
+        fs.mkdir(exePath+"/banners",(err)=>{});
+
         try
         {
             //settings/additional info for each tracked program.

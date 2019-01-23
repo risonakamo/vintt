@@ -1,8 +1,0 @@
-{
-    "notepad.exe":{
-        "name":"notepad",
-        "img":"test1.png",
-        "totalTime":128,
-        "process":"notepad.exe"
-    }
-}
