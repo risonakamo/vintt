@@ -17,11 +17,9 @@ const events=require("events");
 const process=require("process");
 const path=require("path");
 
-//path to exe, where config and other folders should be located next to
-const exePath=path.relative(".",path.dirname(process.execPath));
-const logFile=`${exePath}/config/ttrack.log`; //the log file path
-const tsettingsFile=`${exePath}/config/tsettings.json`; //tsettings file path
-const timeFile=`${exePath}/config/playtime.json`; //total time file
+const logFile="config/ttrack.log"; //the log file path
+const tsettingsFile="config/tsettings.json"; //tsettings file path
+const timeFile="config/playtime.json"; //total time file
 
 class TTrack
 {
@@ -76,7 +74,7 @@ class TTrack
                     }
 
                     //update image path to be relative to banners folder
-                    this.lastProcess.img=`../${exePath}/banners/${this.lastProcess.img}`;
+                    this.lastProcess.img=`../../../banners/${this.lastProcess.img}`;
 
                     //perform inital log
                     this.logProcess(this.lastProcess);
@@ -169,8 +167,8 @@ class TTrack
     //do constructor data loading actions
     loadData()
     {
-        fs.mkdir(exePath+"/config",(err)=>{});
-        fs.mkdir(exePath+"/banners",(err)=>{});
+        fs.mkdir("config",(err)=>{});
+        fs.mkdir("banners",(err)=>{});
 
         try
         {
