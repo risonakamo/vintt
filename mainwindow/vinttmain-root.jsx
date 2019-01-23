@@ -45,12 +45,7 @@ class VinttMainRoot extends React.Component
 
   componentDidUpdate()
   {
-    if (!this.state.waiting)
-    {
-      setTimeout(()=>{
-        requestResize(500,this.infoSection.current.clientHeight+40);
-      },200);
-    }
+    this.doResize();
   }
 
   //recieve a process track info object and set it as the currently running program
@@ -71,6 +66,24 @@ class VinttMainRoot extends React.Component
       ttrack.logEnd();
       this.minuteTimer.current.endTime();
       ttrack.waitForRunning();
+    }
+  }
+
+  //resize window to fit things. has to wait for dom to be
+  //updated.
+  doResize(times=3)
+  {
+    if (this.infoSection.current && !this.state.waiting)
+    {
+      setTimeout(()=>{
+        times--;
+        requestResize(500,this.infoSection.current.clientHeight+40);
+
+        if (times>0)
+        {
+          this.doResize(times);
+        }
+      },200);
     }
   }
 

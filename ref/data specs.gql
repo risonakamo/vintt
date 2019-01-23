@@ -3,8 +3,10 @@ type TrackSetting
 {
     name: string, #user given name for the process
     img: string, #img url for this process
-    totalTime: int, #total time in minutes
-    process: string #the name of the process
+    process: string, #the name of the process
+
+    totalTime: int, #total time in minutes, added during found event
+    imgMadeRelative: bool #whether img field has been modified, added during found event
 }
 
 #format for tsettings.json file

@@ -2,7 +2,12 @@ const {app,BrowserWindow,ipcMain}=require("electron");
 
 function main()
 {
-    var win=new BrowserWindow({width:500,height:160,useContentSize:true,webPreferences:{nodeIntegration:true}});
+    var win=new BrowserWindow({
+        width:500,
+        height:160,
+        useContentSize:true,
+        webPreferences:{nodeIntegration:true}
+    });
 
     win.on("close",()=>{
         win.webContents.send("about-to-close");

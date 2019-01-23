@@ -73,8 +73,12 @@ class TTrack
                         this.lastProcess.totalTime=0;
                     }
 
-                    //update image path to be relative to banners folder
-                    this.lastProcess.img=`../../../banners/${this.lastProcess.img}`;
+                    if (!this.lastProcess.imgMadeRelative)
+                    {
+                        //update image path to be relative to banners folder
+                        this.lastProcess.img=`../../../banners/${this.lastProcess.img}`;
+                        this.lastProcess.imgMadeRelative=true;
+                    }
 
                     //perform inital log
                     this.logProcess(this.lastProcess);
