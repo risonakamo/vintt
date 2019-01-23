@@ -14,6 +14,7 @@ class VinttMainRoot extends React.Component {
     };
     this.infoSection = React.createRef();
     this.minuteTimer = React.createRef();
+    this.playTimer = React.createRef();
   }
 
   componentDidMount() {
@@ -41,6 +42,7 @@ class VinttMainRoot extends React.Component {
 
   processNowRunning(processData) {
     this.minuteTimer.current.startTime();
+    this.playTimer.current.startAt(processData.totalTime);
     this.setState({
       waiting: false,
       img: processData.img,
@@ -80,7 +82,10 @@ class VinttMainRoot extends React.Component {
       className: "now-playing"
     }, React.createElement("h1", null, this.state.name), React.createElement("p", null, "current session: ", React.createElement(MinuteTimer, {
       ref: this.minuteTimer
-    })), React.createElement("p", null, "total: 12 minutes"))));
+    })), React.createElement("p", null, "total: ", React.createElement(MinuteTimer, {
+      hourMode: true,
+      ref: this.playTimer
+    })))));
   }
 
 }
@@ -108,8 +113,28 @@ class MinuteTimer extends React.Component {
     });
   }
 
+  startAt(mins) {
+    clearInterval(this.minTimer);
+    this.setState({
+      mins
+    });
+    this.startTime();
+  }
+
   render() {
-    return React.createElement(React.Fragment, null, this.state.mins, " minutes");
+    var displayTime = this.state.mins;
+    var timeText = "minutes";
+
+    if (displayTime == 1) {
+      timeText = "minute";
+    }
+
+    if (this.props.hourMode && this.state.mins >= 60) {
+      timeText = "hrs";
+      displayTime = (displayTime / 60).toFixed(1);
+    }
+
+    return React.createElement(React.Fragment, null, `${displayTime} ${timeText}`);
   }
 
 }
