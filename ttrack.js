@@ -119,6 +119,7 @@ class TTrack
     //perform an ending log of the last found process
     logEnd()
     {
+        this.updateTotalTime(this.lastProcess);
         this.logProcess(this.lastProcess,1);
     }
 
@@ -138,13 +139,21 @@ class TTrack
         return null;
     }
 
-    //given a track setting, updates the total time object by calculating the duration
-    //between the current time and the lastFoundTime, which should be the time that the
-    //given trackSetting program was started. don't exactly know why i'm splitting it up like
-    //this, but whatever. also writes to the ttime file.
+    //given a track setting, updates the total time object
     updateTotalTime(tracksetting)
     {
+        //calculate total time, save as minutes
+        var newTotal=Math.round((new Date()-this.lastFoundTime)/60000)+tracksetting.totalTime;
+        tracksetting.totalTime=newTotal;
+        this.totalTimes[tracksetting.process]=newTotal;
 
+        fs.writeFile(timeFile,JSON.stringify(this.totalTimes),(err)=>{
+            if (err)
+            {
+                console.log("total time file write error");
+                console.log(err);
+            }
+        });
     }
 
     //do constructor data loading actions

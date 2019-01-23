@@ -97,7 +97,7 @@ class VinttMainRoot extends React.Component
         <div className="now-playing">
           <h1>{this.state.name}</h1>
           <p>current session: <MinuteTimer ref={this.minuteTimer}/></p>
-          <p>total: 12 hours</p>
+          <p>total: 12 minutes</p>
         </div>
       </div>
     </>);

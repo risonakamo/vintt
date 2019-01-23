@@ -80,7 +80,7 @@ class VinttMainRoot extends React.Component {
       className: "now-playing"
     }, React.createElement("h1", null, this.state.name), React.createElement("p", null, "current session: ", React.createElement(MinuteTimer, {
       ref: this.minuteTimer
-    })), React.createElement("p", null, "total: 12 hours"))));
+    })), React.createElement("p", null, "total: 12 minutes"))));
   }
 
 }
