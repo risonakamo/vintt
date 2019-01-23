@@ -6,3 +6,18 @@ type TrackSetting
     totalTime: int, #total time in minutes
     process: string #the name of the process
 }
+
+#format for tsettings.json file
+#TrackSettings mapped to the unique process name
+type TSettingsFile
+{
+    [processNames]:TrackSetting
+}
+
+#formatting for json time file.
+#total time in minutes is keyed to unique process name,
+#which should exist inside TSettingsFile
+type TimeFile
+{
+    [processNames]:int
+}

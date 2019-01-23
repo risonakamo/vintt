@@ -23,7 +23,6 @@ class VinttMainRoot extends React.Component {
     ttrack.waitForRunning();
     window.addEventListener("keypress", e => {
       if (e.key == "Enter" || e.key == " ") {
-        console.log(e.key);
         this.resetIdle();
       }
     });
@@ -41,7 +40,6 @@ class VinttMainRoot extends React.Component {
   }
 
   processNowRunning(processData) {
-    this.lastData = processData;
     this.minuteTimer.current.startTime();
     this.setState({
       waiting: false,
@@ -55,7 +53,7 @@ class VinttMainRoot extends React.Component {
       this.setState({
         waiting: true
       });
-      ttrack.logProcess(this.lastData, 1);
+      ttrack.logEnd();
       this.minuteTimer.current.endTime();
       ttrack.waitForRunning();
     }

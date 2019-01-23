@@ -38,6 +38,9 @@ class TTrack
         //when a process is found and starts, this records the start time,
         //so when an end is called the duration can be calculated
         //this.lastFoundTime;*
+
+        //TrackSetting of last found process
+        //this.lastProcess;
     }
 
     //public.
@@ -54,23 +57,25 @@ class TTrack
                 {
                     clearInterval(this.waitRunningTimer);
 
+                    this.lastProcess=this.trackSettings[foundProcess];
+
                     //grab the total time for the current found process and put it into the
                     //track settings.
                     if (this.totalTimes[foundProcess])
                     {
-                        this.trackSettings[foundProcess].totalTime=this.totalTimes[foundProcess];
+                        this.lastProcess.totalTime=this.totalTimes[foundProcess];
                     }
 
                     else
                     {
-                        this.trackSettings[foundProcess].totalTime=0;
+                        this.lastProcess.totalTime=0;
                     }
 
-                    this.logProcess(this.trackSettings[foundProcess]);
+                    this.logProcess(this.lastProcess);
 
                     this.lastFoundTime=new Date();
 
-                    this.eventSystem.emit("found",this.trackSettings[foundProcess]);
+                    this.eventSystem.emit("found",this.lastProcess);
                 }
             }).catch((err)=>{
                 if (err)
@@ -88,7 +93,6 @@ class TTrack
         this.eventSystem.on(ename,listener);
     }
 
-    //public.
     //make a log entry to the log file.
     //give it a whole TrackSetting object.
     //give it end=true to mark the log entry with Λ for end,
@@ -109,6 +113,13 @@ class TTrack
         }
 
         fs.appendFile(logFile,`${dnow.getFullYear()}-${dnow.getMonth()+1}-${dnow.getDate()} ${dnow.toTimeString().slice(0,8)} ${end} ${tracksetting.process} ${tracksetting.name}\r\n`,()=>{});
+    }
+
+    //public
+    //perform an ending log of the last found process
+    logEnd()
+    {
+        this.logProcess(this.lastProcess,1);
     }
 
     //give it a processlist object from plist.

@@ -15,8 +15,6 @@ class VinttMainRoot extends React.Component
       name:""
     };
 
-    //this.lastData;* last data object to be recieved
-
     //info section wrap element thing
     this.infoSection=React.createRef();
     this.minuteTimer=React.createRef();
@@ -34,7 +32,6 @@ class VinttMainRoot extends React.Component
     window.addEventListener("keypress",(e)=>{
       if (e.key=="Enter" || e.key==" ")
       {
-        console.log(e.key);
         this.resetIdle();
       }
     });
@@ -58,7 +55,6 @@ class VinttMainRoot extends React.Component
   //recieve a process track info object and set it as the currently running program
   processNowRunning(processData)
   {
-    this.lastData=processData;
     this.minuteTimer.current.startTime();
     this.setState({waiting:false,img:processData.img,name:processData.name});
   }
@@ -70,7 +66,7 @@ class VinttMainRoot extends React.Component
     if (!this.state.waiting)
     {
       this.setState({waiting:true});
-      ttrack.logProcess(this.lastData,1);
+      ttrack.logEnd();
       this.minuteTimer.current.endTime();
       ttrack.waitForRunning();
     }
