@@ -3,7 +3,13 @@ const packager=require("electron-packager");
 
 packager({
     dir:`${__dirname}/..`,
+
     name:"ViNTT",
+    executableName:"vintt",
     icon:`${__dirname}/icon.ico`,
-    ignore:["build",/(.*)\.(jsx|less)$/,".gitignore"]
+    electronVersion:"4.0.2",
+
+    ignore:["build",/(.*)\.(jsx|less)$/,".gitignore","ref","ref2","jsconfig.json"]
+},(err,path)=>{
+    console.log(err);
 });
