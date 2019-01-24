@@ -6,7 +6,7 @@ packager({
 
     name:"ViNTT",
     executableName:"vintt",
-    icon:`${__dirname}/icon.ico`,
+    icon:`${__dirname}/icon2.ico`,
     electronVersion:"4.0.2",
 
     ignore:["build",/(.*)\.(jsx|less)$/,".gitignore","ref","ref2","jsconfig.json"]
