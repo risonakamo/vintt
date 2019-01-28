@@ -177,11 +177,12 @@ class TTrack
         try
         {
             //settings/additional info for each tracked program.
-            this.trackSettings=JSON.parse(fs.readFileSync(tsettingsFile));
+            this.trackSettings=JSON.parse(fs.readFileSync(tsettingsFile,{encoding:"utf8"}).trim());
         }
 
         catch(err)
         {
+            console.log(err);
             this.trackSettings={};
         }
 
@@ -190,7 +191,7 @@ class TTrack
 
         try
         {
-            this.totalTimes=JSON.parse(fs.readFileSync(timeFile));
+            this.totalTimes=JSON.parse(fs.readFileSync(timeFile).trim());
         }
 
         catch(err)
