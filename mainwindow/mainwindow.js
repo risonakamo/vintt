@@ -6,6 +6,13 @@ window.onload=main;
 function main()
 {
     ReactDOM.render(React.createElement(VinttMainRoot),document.querySelector(".top-wrap"));
+
+    window.addEventListener("keydown",(e)=>{
+        if (e.key=="I" && e.ctrlKey && e.shiftKey)
+        {
+            ipcRenderer.send("open-devtools");
+        }
+    });
 }
 
 //request main process resizes this main window

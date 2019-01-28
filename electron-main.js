@@ -6,7 +6,7 @@ function main()
         width:500,
         height:160,
         useContentSize:true,
-        webPreferences:{nodeIntegration:true}
+        webPreferences:{nodeIntegration:true,devTools:true}
     });
 
     win.on("close",()=>{
@@ -15,6 +15,10 @@ function main()
 
     ipcMain.on("resize-req",(e,width,height)=>{
         win.setContentSize(width,height);
+    });
+
+    ipcMain.on("open-devtools",()=>{
+        win.webContents.openDevTools();
     });
 
     win.loadURL(`${__dirname}/mainwindow/mainwindow.html`);
