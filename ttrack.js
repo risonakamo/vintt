@@ -26,22 +26,24 @@ class TTrack
     constructor()
     {
         //sets:
-        //this.trackSettings;*
-        //this.trackSet;*
-        //this.totalTimes;*
-        this.loadData();
+        //this.trackSettings;* //the settings object
+        //this.trackSet;* //the set of names of programs to track, for fast detection
+                          //when scanning over process names
+        //this.totalTimes;* //the total times object that gets written to playtime.json
+        //this.readError;* //a flag indicating if something went wrong in this object
+        this.loadData(); //perform data load operations
 
-        //wait for running timer function
+        //wait for running timer function:
         //this.waitRunningTimer*;
 
-        //event system
+        //event system:
         this.eventSystem=new events.EventEmitter();
 
         //when a process is found and starts, this records the start time,
-        //so when an end is called the duration can be calculated
+        //so when an end is called the duration can be calculated:
         //this.lastFoundTime;*
 
-        //TrackSetting of last found process
+        //TrackSetting of last found process:
         //this.lastProcess;
     }
 
@@ -177,13 +179,27 @@ class TTrack
         try
         {
             //settings/additional info for each tracked program.
-            this.trackSettings=JSON.parse(fs.readFileSync(tsettingsFile,{encoding:"utf8"}).trim());
+            //error checking for non existant file
+            if (fs.existsSync(tsettingsFile))
+            {
+                this.trackSettings=JSON.parse(fs.readFileSync(tsettingsFile,{encoding:"utf8"}).trim());
+            }
+
+            else
+            {
+                this.trackSettings={};
+            }
         }
 
+        //if the file is broken "somehow", DONT default it, instead prevent
+        //program operation, as often the file isnt actually broken, and we don't want
+        //the non broken file to get overwritten
         catch(err)
         {
+            console.log("track settings read error");
             console.log(err);
-            this.trackSettings={};
+            this.trackSettings=null;
+            this.readError=1;
         }
 
         //set of process names to track
@@ -191,12 +207,25 @@ class TTrack
 
         try
         {
-            this.totalTimes=JSON.parse(fs.readFileSync(timeFile).trim());
+            //error checking for non existant file
+            if (fs.existsSync(timeFile))
+            {
+                this.totalTimes=JSON.parse(fs.readFileSync(timeFile,{encoding:"utf8"}).trim());
+            }
+
+            else
+            {
+                this.totalTimes={};
+            }
         }
 
+        //same error handling behaviour as for tsettings file above
         catch(err)
         {
-            this.totalTimes={};
+            console.log("total time file read error");
+            console.log(err);
+            this.totalTimes=null;
+            this.readError=1;
         }
     }
 }

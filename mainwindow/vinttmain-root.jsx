@@ -23,6 +23,12 @@ class VinttMainRoot extends React.Component
 
   componentDidMount()
   {
+    if (ttrack.readError)
+    {
+      console.log("read error flag set");
+      return;
+    }
+
     ttrack.on("found",(data)=>{
       this.processNowRunning(data);
     });
