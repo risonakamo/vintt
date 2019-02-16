@@ -9,8 +9,14 @@ function main()
         webPreferences:{nodeIntegration:true,devTools:true}
     });
 
-    win.on("close",()=>{
-        win.webContents.send("about-to-close");
+    var finalQuit;
+
+    win.on("close",(e)=>{
+        if (!finalQuit)
+        {
+            e.preventDefault();
+            win.webContents.send("about-to-close");
+        }
     });
 
     ipcMain.on("resize-req",(e,width,height)=>{
@@ -21,11 +27,16 @@ function main()
         win.webContents.openDevTools();
     });
 
+    ipcMain.on("ready-to-quit",()=>{
+        finalQuit=1;
+        app.quit();
+    });
+
     win.loadURL(`${__dirname}/mainwindow/mainwindow.html`);
 }
 
 app.on("ready",main);
 
-app.on("window-all-closed",()=>{
-    app.quit();
-});
+// app.on("window-all-closed",()=>{
+//     app.quit();
+// });

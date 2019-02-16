@@ -46,6 +46,7 @@ class VinttMainRoot extends React.Component
     //handle about to close event from electron main
     ipcRenderer.on("about-to-close",()=>{
       this.resetIdle();
+      ipcRenderer.send("ready-to-quit");
     });
   }
 

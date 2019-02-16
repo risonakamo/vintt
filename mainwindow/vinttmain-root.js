@@ -34,6 +34,7 @@ class VinttMainRoot extends React.Component {
     });
     ipcRenderer.on("about-to-close", () => {
       this.resetIdle();
+      ipcRenderer.send("ready-to-quit");
     });
   }
 
