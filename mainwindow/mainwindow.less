@@ -45,6 +45,7 @@ p
 {
     display: flex;
     margin: 20px;
+    flex-direction: column;
 
     //disabled
     &.inactive
@@ -59,6 +60,19 @@ p
         align-items: center;
         justify-content: center;
         margin: 0;
+    }
+
+    &.multi
+    {
+        .game-container
+        {
+            margin-bottom: 25px;
+        }
+    }
+
+    .game-container
+    {
+        display: inherit;
     }
 }
 

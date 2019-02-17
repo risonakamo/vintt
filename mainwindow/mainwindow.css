@@ -27,6 +27,7 @@ p {
 .wrap {
   display: flex;
   margin: 20px;
+  flex-direction: column;
 }
 .wrap.inactive {
   display: none;
@@ -36,6 +37,12 @@ p {
   align-items: center;
   justify-content: center;
   margin: 0;
+}
+.wrap.multi .game-container {
+  margin-bottom: 25px;
+}
+.wrap .game-container {
+  display: inherit;
 }
 .banner-img {
   display: inline-flex;

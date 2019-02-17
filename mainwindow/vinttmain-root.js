@@ -90,6 +90,8 @@ class VinttMainRoot extends React.Component {
     }, React.createElement("p", null, "waiting...")), React.createElement("div", {
       className: `wrap ${waitingClasses[1]}`,
       ref: this.infoSection
+    }, React.createElement("div", {
+      className: "game-container"
     }, React.createElement("img", {
       className: "banner-img",
       src: this.state.img
@@ -100,7 +102,7 @@ class VinttMainRoot extends React.Component {
     })), React.createElement("p", null, "total: ", React.createElement(MinuteTimer, {
       hourMode: true,
       ref: this.playTimer
-    })))));
+    }))))));
   }
 
 }

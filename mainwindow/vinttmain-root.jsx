@@ -115,12 +115,21 @@ class VinttMainRoot extends React.Component
       </div>
 
       <div className={`wrap ${waitingClasses[1]}`} ref={this.infoSection}>
-        <img className="banner-img" src={this.state.img}/>
-        <div className="now-playing">
-          <h1>{this.state.name}</h1>
-          <p>current session: <MinuteTimer ref={this.minuteTimer}/></p>
-          <p>total: <MinuteTimer hourMode={true} ref={this.playTimer}/></p>
+        <div className="game-container">
+          <img className="banner-img" src={this.state.img}/>
+          <div className="now-playing">
+            <h1>{this.state.name}</h1>
+            <p>current session: <MinuteTimer ref={this.minuteTimer}/></p>
+            <p>total: <MinuteTimer hourMode={true} ref={this.playTimer}/></p>
+          </div>
         </div>
+
+        {/* <div className="game-container">
+          <img className="banner-img" src="../../../banners/telephone.png"/>
+          <div className="now-playing">
+            <h1>asdasda</h1>
+          </div>
+        </div> */}
       </div>
     </>);
   }
