@@ -63,33 +63,41 @@ class TTrack
 
                     this.lastProcess=this.trackSettings[foundProcess];
 
-                    //grab the total time for the current found process and put it into the
-                    //track settings.
-                    if (this.totalTimes[this.lastProcess.name])
+                    if (!this.lastProcess.length)
                     {
-                        this.lastProcess.totalTime=this.totalTimes[this.lastProcess.name];
+                        this.lastProcess=[this.lastProcess];
                     }
 
-                    else
+                    for (var x=0,l=this.lastProcess.length;x<l;x++)
                     {
-                        this.lastProcess.totalTime=0;
-                    }
+                        //grab the total time for the current found process and put it into the
+                        //track settings.
+                        if (this.totalTimes[this.lastProcess[x].name])
+                        {
+                            this.lastProcess[x].totalTime=this.totalTimes[this.lastProcess[x].name];
+                        }
 
-                    if (!this.lastProcess.imgMadeRelative)
-                    {
-                        //update image path to be relative to banners folder
-                        this.lastProcess.img=`../../../banners/${this.lastProcess.img}`;
-                        this.lastProcess.imgMadeRelative=true;
+                        else
+                        {
+                            this.lastProcess[x].totalTime=0;
+                        }
+
+                        if (!this.lastProcess[x].imgMadeRelative)
+                        {
+                            //update image path to be relative to banners folder
+                            this.lastProcess[x].img=`../../../banners/${this.lastProcess[x].img}`;
+                            this.lastProcess[x].imgMadeRelative=true;
+                        }
                     }
 
                     //perform inital log
-                    this.logProcess(this.lastProcess);
+                    this.logProcess(this.lastProcess[0]);
 
                     //record time the process started
                     this.lastFoundTime=new Date();
 
                     //emit process found event
-                    this.eventSystem.emit("found",this.lastProcess);
+                    this.eventSystem.emit("found",this.lastProcess[0]);
                 }
             }).catch((err)=>{
                 if (err)
