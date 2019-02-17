@@ -88,6 +88,8 @@ class TTrack
                             this.lastProcess[x].img=`../../../banners/${this.lastProcess[x].img}`;
                             this.lastProcess[x].imgMadeRelative=true;
                         }
+
+                        this.lastProcess[x].process=foundProcess;
                     }
 
                     //perform inital log
@@ -96,8 +98,12 @@ class TTrack
                     //record time the process started
                     this.lastFoundTime=new Date();
 
+                    //remove this later when doing something with
+                    //array process configs
+                    this.lastProcess=this.lastProcess[0];
+
                     //emit process found event
-                    this.eventSystem.emit("found",this.lastProcess[0]);
+                    this.eventSystem.emit("found",this.lastProcess);
                 }
             }).catch((err)=>{
                 if (err)
