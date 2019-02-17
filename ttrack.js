@@ -61,8 +61,12 @@ class TTrack
                 {
                     clearInterval(this.waitRunningTimer);
 
+                    //find the target process in track settings
                     this.lastProcess=this.trackSettings[foundProcess];
 
+                    //if it is a single tracksetting, convert to an array so we can
+                    //handle it like an array. if it is already an array obviously do
+                    //nothing
                     if (!this.lastProcess.length)
                     {
                         this.lastProcess=[this.lastProcess];
@@ -77,11 +81,16 @@ class TTrack
                             this.lastProcess[x].totalTime=this.totalTimes[this.lastProcess[x].name];
                         }
 
+                        //otherwise total time is 0
                         else
                         {
                             this.lastProcess[x].totalTime=0;
                         }
 
+                        //convert the image file name to a relative filename. set a flag to make
+                        //sure it doesnt get converted multiple times (not just for speed, the
+                        //conversion involves using .img variable which is changed upon conversion,
+                        //so converting multiple times would break the path)
                         if (!this.lastProcess[x].imgMadeRelative)
                         {
                             //update image path to be relative to banners folder
@@ -89,6 +98,7 @@ class TTrack
                             this.lastProcess[x].imgMadeRelative=true;
                         }
 
+                        //giving the tracksetting the processname which is the foundProcess key
                         this.lastProcess[x].process=foundProcess;
                     }
 

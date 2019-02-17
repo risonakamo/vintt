@@ -5,15 +5,17 @@ type TrackSetting
     #original data from a data file:
     name: string, #user given name for the process
     img: string, #img url for this process
-    process: string, #the name of the process
 
     #data appended before sending out as event
+    process: string, #the name of the process
     totalTime: int, #total time in minutes, added during found event
     imgMadeRelative: bool #whether img field has been modified, added during found event
 }
 
-#format for tsettings.json file
+#format for physical tsettings.json file
 #TrackSettings mapped to the unique process name
+#read TrackSetting comments for which data things actually
+#should go into the config file
 type TSettingsFile
 {
     [processNames]:TrackSetting
