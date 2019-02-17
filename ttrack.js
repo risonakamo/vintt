@@ -65,9 +65,9 @@ class TTrack
 
                     //grab the total time for the current found process and put it into the
                     //track settings.
-                    if (this.totalTimes[foundProcess])
+                    if (this.totalTimes[this.lastProcess.name])
                     {
-                        this.lastProcess.totalTime=this.totalTimes[foundProcess];
+                        this.lastProcess.totalTime=this.totalTimes[this.lastProcess.name];
                     }
 
                     else
@@ -159,7 +159,7 @@ class TTrack
         //calculate total time, save as minutes
         var newTotal=Math.round((new Date()-this.lastFoundTime)/60000)+tracksetting.totalTime;
         tracksetting.totalTime=newTotal;
-        this.totalTimes[tracksetting.process]=newTotal;
+        this.totalTimes[tracksetting.name]=newTotal;
 
         fs.writeFile(timeFile,JSON.stringify(this.totalTimes),(err)=>{
             if (err)
