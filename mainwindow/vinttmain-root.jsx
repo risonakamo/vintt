@@ -58,6 +58,12 @@ class VinttMainRoot extends React.Component
   //recieve a process track info object and set it as the currently running program
   processNowRunning(processData)
   {
+    if (processData.length)
+    {
+      console.log(processData);
+      processData=processData[0];
+    }
+
     this.minuteTimer.current.startTime();
     this.playTimer.current.startAt(processData.totalTime);
     this.setState({waiting:false,img:processData.img,name:processData.name});
@@ -123,15 +129,23 @@ class VinttMainRoot extends React.Component
             <p>total: <MinuteTimer hourMode={true} ref={this.playTimer}/></p>
           </div>
         </div>
-
-        {/* <div className="game-container">
-          <img className="banner-img" src="../../../banners/telephone.png"/>
-          <div className="now-playing">
-            <h1>asdasda</h1>
-          </div>
-        </div> */}
       </div>
     </>);
+  }
+}
+
+class GameContainerSelector extends React.Component
+{
+  render()
+  {
+    return (
+      <div className="game-container">
+        <img className="banner-img" src="../../../banners/telephone.png"/>
+        <div className="now-playing">
+          <h1>asdasda</h1>
+        </div>
+      </div>
+    );
   }
 }
 

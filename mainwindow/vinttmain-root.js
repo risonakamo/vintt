@@ -43,6 +43,11 @@ class VinttMainRoot extends React.Component {
   }
 
   processNowRunning(processData) {
+    if (processData.length) {
+      console.log(processData);
+      processData = processData[0];
+    }
+
     this.minuteTimer.current.startTime();
     this.playTimer.current.startAt(processData.totalTime);
     this.setState({
@@ -103,6 +108,20 @@ class VinttMainRoot extends React.Component {
       hourMode: true,
       ref: this.playTimer
     }))))));
+  }
+
+}
+
+class GameContainerSelector extends React.Component {
+  render() {
+    return React.createElement("div", {
+      className: "game-container"
+    }, React.createElement("img", {
+      className: "banner-img",
+      src: "../../../banners/telephone.png"
+    }), React.createElement("div", {
+      className: "now-playing"
+    }, React.createElement("h1", null, "asdasda")));
   }
 
 }
