@@ -1,10 +1,13 @@
 #track setting and additional details for a single tracked process
+#May also come in an array form, which is just array of TrackSettings
 type TrackSetting
 {
+    #original data from a data file:
     name: string, #user given name for the process
     img: string, #img url for this process
     process: string, #the name of the process
 
+    #data appended before sending out as event
     totalTime: int, #total time in minutes, added during found event
     imgMadeRelative: bool #whether img field has been modified, added during found event
 }
