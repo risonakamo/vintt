@@ -1,12 +1,20 @@
-/* REGEN PLAYTIMES
-   tool for fixing playtimes.json.
-   see readme for how to use*/
+const fs=require("fs");
+
+//configure with path to logfile to regen from
+const logfilepath="ttrack.log";
+
+function main()
+{
+    var logfile=fs.readFileSync(logfilepath).toString();
+
+    regenPlaytimes(logfile);
+}
 
 function regenPlaytimes(logfile)
 {
     logfile=logfile.split("\n");
 
-    var linematcher=/(.*) (V|Λ) (.*\.exe)/;
+    var linematcher=/(.*) (V|Λ) (.*\.exe) (.*)/;
     var linematch; //the match object of the current log entry
 
     var enterTime; //set to a Date object when encountering a log entry
@@ -56,15 +64,15 @@ function regenPlaytimes(logfile)
             {
                 lastTime=0;
 
-                timeSpent=Math.ceil((new Date(linematch[1])-enterTime)/60000);
-                if (res[linematch[3]])
+                timeSpent=Math.round((new Date(linematch[1])-enterTime)/60000);
+                if (res[linematch[4]])
                 {
-                    res[linematch[3]]+=timeSpent;
+                    res[linematch[4]]+=timeSpent;
                 }
 
                 else
                 {
-                    res[linematch[3]]=timeSpent;
+                    res[linematch[4]]=timeSpent;
                 }
             }
         }
@@ -74,3 +82,5 @@ function regenPlaytimes(logfile)
     console.log(res);
     return JSON.stringify(res);
 }
+
+main();

@@ -6,9 +6,8 @@ a reference for when i forget
 - its not always right at all. so we have this tool to help us figure out if it has too many problems
 
 ## using it
-- its in a js file. just pop it in the browser
-- it takes a string which is supposed to be the whole log file. copy it in, give it to the function
-- boom, results. first, check the enter and exit points
+- configure the js file in the js file, point it to a log file to handle
+- node.js it
 - ideally, since vintt should make an entry for each time a program starts and each time a program ends, the enter and exit numbers should be the same. but thats never the case.
     - luckily, having too many entrys is not a problem because the tool ignores entries withuot exits, simply taking the later entry. but if YOU the USER want to fix that, go into the log file and add exits for the estranged enters.
     - if there are more exits than enters, well, we have a problem. it means a certain exe is going to get way more hours than it should have, and you should definitely try fixing this possibly by removing the bad exit point. HOPEFULLY the tool ignores the bad exit and continues but who knows
