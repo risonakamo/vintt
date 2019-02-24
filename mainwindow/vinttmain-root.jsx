@@ -168,6 +168,11 @@ class MinuteTimer extends React.Component
   //being the timer
   startTime()
   {
+    if (this.minTimer)
+    {
+      clearInterval(this.minTimer);
+    }
+
     this.minTimer=setInterval(()=>{
       this.setState({mins:this.state.mins+1});
     },60000);

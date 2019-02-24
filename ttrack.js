@@ -54,6 +54,11 @@ class TTrack
     {
         var foundProcess;
 
+        if (this.waitRunningTimer)
+        {
+            clearInterval(this.waitRunningTimer);
+        }
+
         this.waitRunningTimer=setInterval(()=>{
             psList().then((plist)=>{
                 foundProcess=this.isSomethingRunning(plist);
