@@ -17,6 +17,8 @@ const events=require("events");
 const process=require("process");
 const path=require("path");
 
+const iconv=require("iconv-lite");
+
 const logFile="config/ttrack.log"; //the log file path
 const tsettingsFile="config/tsettings.json"; //tsettings file path
 const timeFile="config/playtime.json"; //total time file
@@ -171,11 +173,13 @@ class TTrack
     //the first one found. or returns null.
     isSomethingRunning(processes)
     {
+        var name;
         for (var x=0,l=processes.length;x<l;x++)
         {
-            if (this.trackSet.has(processes[x].name))
+            name=iconv.decode(iconv.encode(processes[x].name,"binary"),"shiftjis");
+            if (this.trackSet.has(name))
             {
-                return processes[x].name;
+                return name;
             }
         }
 

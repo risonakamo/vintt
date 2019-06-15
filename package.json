@@ -4,6 +4,7 @@
   "version": "1.0.4-beta",
   "main": "electron-main.js",
   "dependencies": {
+    "iconv-lite": "^0.4.24",
     "ps-list": "^6.0.0"
   },
   "devDependencies": {
